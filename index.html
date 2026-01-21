@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShotsUp!</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#1b2735" />
+
+    <!-- External dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <script type="importmap">
+        {
+          "imports": {
+            "react": "https://esm.sh/react@18.3.1",
+            "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+            "react-dom": "https://esm.sh/react-dom@18.3.1",
+            "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+            "qrcode.react": "https://esm.sh/qrcode.react@3.1.0",
+            "firebase/app": "https://esm.sh/firebase@10.12.2/app",
+            "firebase/auth": "https://esm.sh/firebase@10.12.2/auth",
+            "firebase/firestore": "https://esm.sh/firebase@10.12.2/firestore",
+            "firebase/": "https://esm.sh/firebase@^12.0.0/",
+            "react/": "https://esm.sh/react@^19.1.1/",
+            "react-dom/": "https://esm.sh/react-dom@^19.1.1/",
+            "@firebase/app": "https://esm.sh/@firebase/app@^0.14.0",
+            "@firebase/firestore": "https://esm.sh/@firebase/firestore@^4.9.0",
+            "@firebase/auth": "https://esm.sh/@firebase/auth@^1.11.0"
+          }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-900 text-white">
+<!-- Online/Offline és Service Worker státusz -->
+<div id="status-bar" class="fixed top-0 left-0 right-0 bg-yellow-500 text-black text-center py-2 z-50 hidden">
+    <span id="status-text">Offline</span> |
+    <span id="sw-status">Service Worker nem aktív</span>
+</div>
+
+<div id="root"></div>
+
+<script>
+    // Online/Offline állapot figyelése
+    const statusBar = document.getElementById('status-bar');
+    const statusText = document.getElementById('status-text');
+    const swStatus = document.getElementById('sw-status');
+
+    function updateOnlineStatus() {
+        if (navigator.onLine) {
+            statusText.textContent = 'Online';
+            statusBar.classList.remove('bg-red-500');
+            statusBar.classList.add('bg-green-500');
+        } else {
+            statusText.textContent = 'Offline';
+            statusBar.classList.remove('bg-green-500');
+            statusBar.classList.add('bg-red-500');
+        }
+        statusBar.classList.remove('hidden');
+    }
+
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+
+    // Service Worker státusz ellenőrzése
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then(reg => {
+            swStatus.textContent = 'Service Worker regisztrálva';
+        }).catch(err => {
+            swStatus.textContent = 'Service Worker hiba: ' + err.message;
+        });
+
+        navigator.serviceWorker.ready.then(() => {
+            swStatus.textContent = 'Service Worker aktív';
+        });
+    } else {
+        swStatus.textContent = 'Service Worker nem támogatott';
+    }
+
+    // Kezdeti állapot megjelenítése
+    updateOnlineStatus();
+</script>
+
+<script type="module" src="index.tsx"></script>
+</body>
+</html>
