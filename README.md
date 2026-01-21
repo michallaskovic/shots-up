@@ -19,15 +19,15 @@ This project was **fully designed, developed and deployed by me** as a complex, 
 ## 📸 Screenshots
 
 ### Main Menu
-![Main Menu](screenshots/menu1.png)
-![Main Menu](screenshots/menu2.png)
+<img src="screenshots/menu1.png" width="250">
+<img src="screenshots/menu2.png" width="250">
 
 ### Lobby & Player Setup
-![Lobby](screenshots/lobby1.png)
-![Player Setup](screenshots/lobby2.png)
+<img src="screenshots/lobby1.png" width="250">
+<img src="screenshots/lobby2.png" width="250">
 
 ### In-Game
-![Gameplay](screenshots/ingame.png)
+<img src="screenshots/ingame.png" width="250">
 
 
 ---
