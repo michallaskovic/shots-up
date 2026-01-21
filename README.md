@@ -16,6 +16,20 @@ The application features a premium neon / glassmorphism UI, smooth animations an
 
 This project was **fully designed, developed and deployed by me** as a complex, real-world portfolio application.
 
+## 📸 Screenshots
+
+### Main Menu
+![Main Menu](screenshots/menu1.png)
+![Main Menu](screenshots/menu2.png)
+
+### Lobby & Player Setup
+![Lobby](screenshots/lobby1.png)
+![Player Setup](screenshots/lobby2.png)
+
+### In-Game
+![Gameplay](screenshots/ingame.png)
+
+
 ---
 
 ## ✨ Key Features
